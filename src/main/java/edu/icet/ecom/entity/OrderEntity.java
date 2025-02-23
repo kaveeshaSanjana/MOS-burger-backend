@@ -1,14 +1,12 @@
 package edu.icet.ecom.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import edu.icet.ecom.embeddable.OrderProduct;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Order")
@@ -17,11 +15,12 @@ import java.util.Date;
 @Data
 public class OrderEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @Column(name = "customer_id")
-    private CustomerEntity customer;
-    @Column(name = "property_id")
-    private PropertyEntity property;
-    private Date date;//this has use java.util.Date
-    private Double price;
+
+    @ElementCollection
+    @CollectionTable(name = "order_product",joinColumns = @JoinColumn(name = "orderId" ))
+    @Column(name = "products")
+    private List<OrderProduct> product;
+    private Double credit;
 }
