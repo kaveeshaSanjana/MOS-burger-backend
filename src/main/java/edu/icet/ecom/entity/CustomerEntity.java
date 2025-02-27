@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class CustomerEntity {
     @Id
-    private String telephone;
+    private String email;
 
     private String name;
 
-    private String email;
+    private String telephone;
 }

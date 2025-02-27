@@ -18,6 +18,8 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    private String customerEmail;
+
     @ElementCollection
     @CollectionTable(name = "order_product",joinColumns = @JoinColumn(name = "orderId" ))
     @Column(name = "products")
