@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductDto {
     private Long productId;
+    private String path;
     private String name;
     private Double price;
+    private String description;
     private Long stock;
 }

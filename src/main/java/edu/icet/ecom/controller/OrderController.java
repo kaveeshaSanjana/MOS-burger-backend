@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/order")
+@RequestMapping("/api/order")
 @RequiredArgsConstructor
 @CrossOrigin
 public class OrderController {
@@ -24,9 +24,9 @@ public class OrderController {
         return orderService.searchOrder(date);
     }
 
-    @GetMapping("/get-by-customer/{customer}")
-    public List<OrderDto> getAll(@PathVariable String customer){
-        return orderService.searchOrder(customer);
+    @GetMapping("/get-all")
+    public List<OrderDto> getAll(){
+        return orderService.getAll();
     }
 
     @GetMapping("/get-by-id/{id}")

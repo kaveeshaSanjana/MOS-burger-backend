@@ -13,7 +13,7 @@ import java.util.Properties;
 public class SendEmailServiceImpl implements SendEmailService {
     public void sendEmail(String subject,String msg,String email) {
         String senderEmail = "contactsforbulk@gmail.com";
-        String senderPassword = "tdgi zhvi fwdo esqm";
+        String senderPassword = "";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

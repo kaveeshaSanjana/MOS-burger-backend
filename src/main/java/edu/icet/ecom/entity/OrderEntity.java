@@ -6,10 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "`Order`")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,11 +19,11 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private String customerEmail;
+    private String email;
 
     @ElementCollection
-    @CollectionTable(name = "order_product",joinColumns = @JoinColumn(name = "orderId" ))
-    @Column(name = "products")
+    @CollectionTable(name = "orderProduct",joinColumns = @JoinColumn(name = "orderId" ))
     private List<OrderProduct> product;
+    private LocalDate date;
     private Double credit;
 }

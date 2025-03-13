@@ -7,7 +7,9 @@ import java.util.List;
 public interface ProductService {
     boolean add(ProductDto productDto);
     List<ProductDto> search(String name);
-    ProductDto search(Integer id);
-    boolean delete(Integer id);
+    ProductDto search(Long id);
+    boolean delete(Long id);
     boolean update(ProductDto productDto);
+
+    List<ProductDto> getAll();
 }

@@ -5,6 +5,8 @@ import edu.icet.ecom.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/customer")
 @RequiredArgsConstructor
@@ -12,14 +14,35 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     final CustomerService customerService;
 
-    @RequestMapping("/save")
-    public void save(@RequestBody CustomerDto customerDto){
-        customerService.addCustomer(customerDto);
+    @PostMapping("/save")
+    public boolean save(@RequestBody CustomerDto customerDto){
+        return customerService.addCustomer(customerDto);
     }
 
-    @RequestMapping("/delete/{id}")
-    public void delete(@PathVariable String email){
-        customerService.deleteCustomer(email);
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable("id") String email){
+        return customerService.deleteCustomer(email);
     }
+
+    @PutMapping("/update")
+    public boolean update(@RequestBody CustomerDto customer){
+        return customerService.updateCustomer(customer);
+    }
+
+    @PatchMapping("/point/{id}/{email}")
+    public boolean increasePoint(@PathVariable("id") Double point,@PathVariable("email") String email){
+        return customerService.increasePoint(point,email);
+    }
+
+    @GetMapping("get-all")
+    public List<CustomerDto> getAllCustomers(){
+        return customerService.getAllCustomers();
+    }
+
+     @GetMapping("get/{id}")
+    public CustomerDto getCustomer(@PathVariable("id") String email){
+        return customerService.getCustomer(email);
+    }
+
 
 }

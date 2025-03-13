@@ -9,7 +9,7 @@ public interface OrderService {
     boolean placeOrder(OrderDto order);
     boolean deleteOrder(Long orderId);
     List<OrderDto> searchOrder(Date date);
-    List<OrderDto> searchOrder(String customer);
+    List<OrderDto> getAll();
     OrderDto searchOrder(Long orderId);
     boolean update(OrderDto orderDto);
 }

@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
     final OrderDao orderDao;
+    final CartServiceImpl cartService;
     final CustomerService customerService;
     final ModelMapper modelMapper;
     final SendEmailService sendEmailService;
@@ -25,15 +26,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean placeOrder(OrderDto order) {
         orderDao.save(modelMapper.map(order,OrderEntity.class));
-        boolean b = customerService.increasePoint(order.getCredit(), order.getEmail());
+        //boolean b = customerService.increasePoint(order.getCredit(), order.getEmail());
         sendEmailService.sendEmail("Place Order","Your order placed Success",order.getEmail());
-        return b;
+        cartService.delete(order.getEmail());
+        return true;
     }
 
     @Override
     public boolean deleteOrder(Long orderId) {
-        orderDao.delete(new OrderEntity(orderId,"",new ArrayList<>(),0.0));
-        return false;
+        orderDao.deleteById(orderId);
+        return true;
     }
 
     @Override
@@ -46,9 +48,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> searchOrder(String email) {
+    public List<OrderDto> getAll() {
         ArrayList<OrderDto> orderDtos = new ArrayList<>();
-        orderDao.findAllByEmail(email).forEach(orderEntity ->
+        orderDao.findAll().forEach(orderEntity ->
                 orderDtos.add(modelMapper.map(orderEntity,OrderDto.class))
         );
         return orderDtos;
