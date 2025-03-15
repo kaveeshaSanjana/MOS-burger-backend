@@ -1,6 +1,6 @@
 package edu.icet.ecom.service.impl;
 
-import edu.icet.ecom.dto.CustomerDto;
+import edu.icet.ecom.dto.CustomerDTO;
 import edu.icet.ecom.entity.CustomerEntity;
 import edu.icet.ecom.repository.CustomerDao;
 import edu.icet.ecom.service.CustomerService;
@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean addCustomer(CustomerDto customer) {
+    public boolean addCustomer(CustomerDTO customer) {
         try {
             if (customerDao.findById(customer.getEmail()).isEmpty()) {
                 customerDao.save(mapper.map(customer, CustomerEntity.class));
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean updateCustomer(CustomerDto customer) {
+    public boolean updateCustomer(CustomerDTO customer) {
         try {
             if (customerDao.findById(customer.getEmail()).isPresent()) {
                 customerDao.save(mapper.map(customer, CustomerEntity.class));
@@ -66,9 +66,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto search(String id) {
+    public CustomerDTO search(String id) {
         try {
-            return customerDao.findById(id).map(customerEntity -> mapper.map(customerEntity, CustomerDto.class))
+            return customerDao.findById(id).map(customerEntity -> mapper.map(customerEntity, CustomerDTO.class))
                     .orElse(null);
         } catch (Exception e) {
             return null;
@@ -76,11 +76,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> getAllCustomers() {
+    public List<CustomerDTO> getAllCustomers() {
         try {
             return customerDao.findAll()
                     .stream()
-                    .map(customerEntity -> mapper.map(customerEntity, CustomerDto.class))
+                    .map(customerEntity -> mapper.map(customerEntity, CustomerDTO.class))
                     .toList();
         } catch (Exception e) {
             return List.of();
@@ -88,9 +88,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto getCustomer(String email) {
+    public CustomerDTO getCustomer(String email) {
         try {
-            return mapper.map(customerDao.findById(email),CustomerDto.class);
+            return mapper.map(customerDao.findById(email), CustomerDTO.class);
         } catch (Exception e) {
             return null;
         }

@@ -1,6 +1,6 @@
 package edu.icet.ecom.controller;
 
-import edu.icet.ecom.dto.CustomerDto;
+import edu.icet.ecom.dto.CustomerDTO;
 import edu.icet.ecom.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class CustomerController {
     final CustomerService customerService;
 
     @PostMapping("/save")
-    public boolean save(@RequestBody CustomerDto customerDto){
+    public boolean save(@RequestBody CustomerDTO customerDto){
         return customerService.addCustomer(customerDto);
     }
 
@@ -25,7 +25,7 @@ public class CustomerController {
     }
 
     @PutMapping("/update")
-    public boolean update(@RequestBody CustomerDto customer){
+    public boolean update(@RequestBody CustomerDTO customer){
         return customerService.updateCustomer(customer);
     }
 
@@ -35,12 +35,12 @@ public class CustomerController {
     }
 
     @GetMapping("get-all")
-    public List<CustomerDto> getAllCustomers(){
+    public List<CustomerDTO> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 
      @GetMapping("get/{id}")
-    public CustomerDto getCustomer(@PathVariable("id") String email){
+    public CustomerDTO getCustomer(@PathVariable("id") String email){
         return customerService.getCustomer(email);
     }
 

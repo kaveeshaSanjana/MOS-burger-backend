@@ -1,6 +1,6 @@
 package edu.icet.ecom.service.impl;
 
-import edu.icet.ecom.dto.OrderDto;
+import edu.icet.ecom.dto.OrderDTO;
 import edu.icet.ecom.entity.OrderEntity;
 import edu.icet.ecom.repository.OrderDao;
 import edu.icet.ecom.service.CustomerService;
@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     final SendEmailService sendEmailService;
 
     @Override
-    public boolean placeOrder(OrderDto order) {
+    public boolean placeOrder(OrderDTO order) {
         orderDao.save(modelMapper.map(order,OrderEntity.class));
         //boolean b = customerService.increasePoint(order.getCredit(), order.getEmail());
         sendEmailService.sendEmail("Place Order","Your order placed Success",order.getEmail());
@@ -39,30 +39,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> searchOrder(Date date) {
-        ArrayList<OrderDto> orderDtos = new ArrayList<>();
+    public List<OrderDTO> searchOrder(Date date) {
+        ArrayList<OrderDTO> orderDTOS = new ArrayList<>();
         orderDao.findAllByDate(date).forEach(orderEntity ->
-                orderDtos.add(modelMapper.map(orderEntity,OrderDto.class))
+                orderDTOS.add(modelMapper.map(orderEntity, OrderDTO.class))
         );
-        return orderDtos;
+        return orderDTOS;
     }
 
     @Override
-    public List<OrderDto> getAll() {
-        ArrayList<OrderDto> orderDtos = new ArrayList<>();
+    public List<OrderDTO> getAll() {
+        ArrayList<OrderDTO> orderDtos = new ArrayList<>();
         orderDao.findAll().forEach(orderEntity ->
-                orderDtos.add(modelMapper.map(orderEntity,OrderDto.class))
+                orderDtos.add(modelMapper.map(orderEntity, OrderDTO.class))
         );
         return orderDtos;
     }
 
     @Override
-    public OrderDto searchOrder(Long orderId) {
-        return modelMapper.map(orderDao.findById(orderId),OrderDto.class);
+    public OrderDTO searchOrder(Long orderId) {
+        return modelMapper.map(orderDao.findById(orderId), OrderDTO.class);
     }
 
     @Override
-    public boolean update(OrderDto orderDto) {
+    public boolean update(OrderDTO orderDto) {
         orderDao.save(modelMapper.map(orderDto,OrderEntity.class));
         return true;
     }

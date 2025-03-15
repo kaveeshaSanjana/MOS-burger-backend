@@ -25,5 +25,6 @@ public class OrderEntity {
     @CollectionTable(name = "orderProduct",joinColumns = @JoinColumn(name = "orderId" ))
     private List<OrderProduct> product;
     private LocalDate date;
+    private Double total;
     private Double credit;
 }

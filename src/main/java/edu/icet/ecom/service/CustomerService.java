@@ -1,16 +1,16 @@
 package edu.icet.ecom.service;
 
-import edu.icet.ecom.dto.CustomerDto;
+import edu.icet.ecom.dto.CustomerDTO;
 
 import java.util.List;
 
 public interface CustomerService {
     boolean increasePoint(Double credit, String email);
-    boolean addCustomer(CustomerDto customer);
-    boolean updateCustomer(CustomerDto customer);
+    boolean addCustomer(CustomerDTO customer);
+    boolean updateCustomer(CustomerDTO customer);
     boolean deleteCustomer(String email);
-    CustomerDto search(String id);
-    List<CustomerDto> getAllCustomers();
+    CustomerDTO search(String id);
+    List<CustomerDTO> getAllCustomers();
 
-    CustomerDto getCustomer(String email);
+    CustomerDTO getCustomer(String email);
 }

@@ -1,15 +1,15 @@
 package edu.icet.ecom.service;
 
-import edu.icet.ecom.dto.OrderDto;
+import edu.icet.ecom.dto.OrderDTO;
 
 import java.sql.Date;
 import java.util.List;
 
 public interface OrderService {
-    boolean placeOrder(OrderDto order);
+    boolean placeOrder(OrderDTO order);
     boolean deleteOrder(Long orderId);
-    List<OrderDto> searchOrder(Date date);
-    List<OrderDto> getAll();
-    OrderDto searchOrder(Long orderId);
-    boolean update(OrderDto orderDto);
+    List<OrderDTO> searchOrder(Date date);
+    List<OrderDTO> getAll();
+    OrderDTO searchOrder(Long orderId);
+    boolean update(OrderDTO orderDto);
 }
