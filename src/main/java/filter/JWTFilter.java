@@ -49,7 +49,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         UserEntity user = userDao.findByUsername(username);
 
-        if(username == null){
+        if(user == null){
             filterChain.doFilter(request,response);
             return;
         }
