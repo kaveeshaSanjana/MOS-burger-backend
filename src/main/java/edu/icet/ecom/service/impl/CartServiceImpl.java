@@ -21,8 +21,12 @@ public class CartServiceImpl implements CartService {
     private final ModelMapper modelMapper;
     @Override
     public Cart save(Cart c) {
-        Optional<CartEntity> s = cartDao.findByProductIdAndEmail(c.getProductId(), c.getCustomerEmail());
+        if(c == null || c.getCustomerEmail() == null || c.getProductId()==null) return null;
 
+        Optional<CartEntity> s = cartDao
+                                .findByProductIdAndEmail(c.getProductId()
+                                                        ,c.getCustomerEmail());
+        System.out.println(s);
         if(s.isPresent()){
             CartEntity save = modelMapper.map(c, CartEntity.class);
             save.setCartId((s.get().getCartId()));
@@ -30,7 +34,9 @@ public class CartServiceImpl implements CartService {
             cartDao.save(save);
             return modelMapper.map(save,Cart.class);
         }
-        return modelMapper.map(cartDao.save(modelMapper.map(c, CartEntity.class)),Cart.class);
+
+        return modelMapper.map(cartDao.save(modelMapper.map(c, CartEntity.class)), Cart.class);
+
     }
 
     @Override
