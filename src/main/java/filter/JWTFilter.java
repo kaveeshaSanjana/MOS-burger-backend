@@ -10,7 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -53,5 +57,16 @@ public class JWTFilter extends OncePerRequestFilter {
         if(SecurityContextHolder.getContext().getAuthentication() != null){
             filterChain.doFilter(request,response);
         }
+
+        UserDetails build = User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(build, null, build.getAuthorities());
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        filterChain.doFilter(request,response);
     }
 }
